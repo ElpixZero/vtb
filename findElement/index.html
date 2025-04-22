@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+    <head>
+        <title>Поиск элементов</title>
+        <link rel="icon" href="./images/icon128.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="../common.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    
+        <style>
+            a.mainLink {
+                color: black;
+                text-decoration: none;
+            }
+            
+            #accordionParent {
+                overflow-y: auto;
+                max-height: 450px;
+            }
+            
+            .btn.active {
+                background: #0d6efd !important;
+                color: white;
+            }
+        
+            .btn-light.btn-sm {
+                border-radius: 2em !important;
+                background: #dee2e6;
+                min-width: 90px;
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+            
+            .btn-outline-primary  {
+                background: #0d6efd !important;
+                color: white !important;
+            }
+            
+            .col-sm-2 {
+                margin-top: 6px;
+            }
+            
+            .labelPage  {
+                margin-right: 10px;
+                margin-top: 10px;
+            }
+            
+            .row {
+                padding: 2px;
+            }
+            
+            .smallInput  {
+                width: 70px !important;
+                flex: none !important;
+                text-align: center;
+            }
+            
+            .tab-content  {
+                border-left: 1px solid var(--bs-border-color);
+                border-right: 1px solid var(--bs-border-color);
+                border-bottom: 1px solid var(--bs-border-color);
+                padding:10px !important;
+                margin-top: 0px !important;
+            }
+        </style>
+    </head>
+    <body>
+        <nav style="--bs-breadcrumb-divider: '⦁';"aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Поиск элементов в ЛМТ</li>
+            </ol>
+        </nav>
+        <div class="container-fluid row g-3 shadow p-3 bg-body-tertiary rounded mx-auto">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2 align-self-center">
+                        <label for="area" class="form-label">Среда:</label>
+                        <select id="area" class="form-select" size="1">
+                            <option value="stg">STG</option>
+                            <option value="prod" selected>PROD</option>
+                        </select>
+                    </div>
+                    <div class="col-8">
+                        <label for="valueNew" class="form-label">authorization:</label>
+                        <input type="text" id="authorizationHeader" class="form-control" value="">
+                    </div>
+                    <div class="col-2 align-self-center">
+                        <button id="clipboardButton" class="btn btn-primary btn-lg" style="width:100%" title="Вставить токен из буфера памяти">←&#x1F4CB;</button>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="col-12 align-self-center">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle='tab' data-bs-target="#tab1" type="button">Виджеты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle='tab' data-bs-target="#tab2" type="button">Условия</a>
+                    </li>
+                </ul>
+            </div>
+          
+            <div class="tab-content">
+                <div class='tab-pane container fade in show active' id='tab1'>
+                    <div class="row">
+                        <label for="widgetID" class="form-label col-sm-2">Название или id:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="widgetID" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="verticalName" class="form-label col-sm-2">Вертикаль:</label>
+                        <div class="col-sm-10">
+                            <select id="verticalName" class="form-select" size="1">
+                                <option value="" selected>Все</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 align-self-center">
+                        <label class="form-label col-sm-2">Опции:</label>
+                        <button id="isActive" class="btn btn-light btn-sm active" data-bs-toggle="button" aria-pressed="true">Активные</button>
+                        <button id="desktop" class="btn btn-light btn-sm active" data-bs-toggle="button" aria-pressed="true">Desktop</button>
+                        <button id="mobile" class="btn btn-light btn-sm active" data-bs-toggle="button" aria-pressed="true">Mobile</button>
+                    </div>
+                    <div class="col-12 align-self-center" id="versionsGroup">
+                        <label class="form-label col-sm-2">Версия:</label>
+                        <button id="allVersions" class="btn btn-light btn-sm active" data-bs-toggle="button" aria-pressed="true">Все</button>
+                    </div>
+                </div>
+                <div class='tab-pane container fade' id='tab2'>
+                  Раздел пока в разработке.
+                </div>
+            </div>
+          
+            <div class="col-7">
+            </div>
+          
+            <div class="col-2">
+                <button id="exportCSV" class="btn btn-primary btn-lg" data-bs-toggle="button" aria-pressed="true">Выгрузить в CSV</button>
+            </div>
+          
+            <div class="col-1">
+            </div>
+            
+            <div class="col-2">
+                <div class="input-group">
+                    <label class="form-label labelPage">Стр. </label>
+                    <button class="btn btn-outline-primary btn-sm" type="button" id="buttonMinus" disabled>-</button>
+                    <input type="text" id="pageIndex" class="form-control smallInput" value="1">
+                    <button class="btn btn-outline-primary btn-sm" type="button" id="buttonPlus" disabled>+</button>
+                </div>
+            </div>
+          
+            <div class="alert alert-light" role="alert" id="statusBar">
+            </div>
+          
+            <div class="col-12" id="accordionParent">
+            </div>
+              
+        </div>
+      
+        <script src="../common.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>

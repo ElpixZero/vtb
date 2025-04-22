@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+    <head>
+        <title>Сравнение config виджетов</title>
+        <link rel="icon" href="./images/icon128.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="../common.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+        <style>
+            .largeCheckbox {
+                scale: 1.5;
+            }
+            .indent {
+              margin-left: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav style="--bs-breadcrumb-divider: '⦁';"aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Сравнение CONFIG виджетов</li>
+            </ol>
+        </nav>
+        <div class="container-fluid row g-3 shadow p-3 bg-body-tertiary rounded mx-auto">
+            
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-1 align-self-center">
+                        <button id="clipboardButton" class="btn btn-primary btn-lg" style="width:100%">&#x1F4CB;→</button>
+                    </div>
+                    <div class="col-11">
+                        <label for="valueNew" class="form-label">authorization:</label>
+                        <input type="text" id="authorizationHeader" class="form-control" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-1 align-self-center">
+                <label for="area" class="form-label">Среда:</label>
+                <select id="area" class="form-select" size="1">
+                    <option value="stg">STG</option>
+                    <option value="prod" selected>PROD</option>
+                </select>
+            </div>
+              
+            <div class="col-3 align-self-center">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="widgetName" class="form-label col-sm-2">Имя:</label>
+                        <select id="widgetName" class="form-select" size="1">
+                        </select>
+                    </div>
+                </div>
+            </div>
+              
+            <div class="col-6 roundedRectHeader align-self-center">
+                <div class="header bg-light"> Config виджета </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label for="valueOld" class="form-label">Старый: </label>
+                        <input type="text" id="valueOld" class="form-control" value="30-12">
+                    </div>
+                    <div class="col-2 align-self-center text-center">
+                        <div class="row-2 py-1">
+                            <button id="configClipboardButton" class="btn btn-primary">←&#x1F4CB;→</button>
+                        </div>
+                        <div class="row-2 py-1">
+                            <button id="swapButton" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&#x21C4;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label for="valueNew" class="form-label">Новый:</label>
+                        <input type="text" id="valueNew" class="form-control" value="30-13">
+                    </div>
+                </div>
+            </div>
+              
+            <div class="col-2 ps-3 align-self-center">
+                <div class="form-check">
+                    <label class="form-check-label" for="showChanges">Только измененные данные</label>
+                    <input class="form-check-input largeCheckbox" type="checkbox" id="showChanges" checked>
+                </div>
+            </div>
+              
+            <div class="col-12">
+                <button id="compareButton" class="btn btn-primary btn-lg">Сравнить</button>
+            </div>
+            
+            <div class="alert alert-light" role="alert" id="statusBar">
+            </div>
+            
+            <div class="col-12" id="accordionParent">
+            </div>
+        </div>
+        <script src="../common.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>
