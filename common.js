@@ -12,8 +12,8 @@ function swapConfig() {
 }
 
 async function getVerticalList(environment) {
-    const result = await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/v1/widget-vertical-list`, false);
-    
+    const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/v1/widget-vertical-list`, false);
+
     if (!result.error) {
         if (!result.answer?.data?.code) {
             return result.answer.items;
@@ -29,8 +29,8 @@ async function getVerticalList(environment) {
 }
 
 async function getWidgetList(environment) {
-    const result = await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/widget/list/v1`, false);
-    
+    const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/widget/list/v1`, false);
+
     if (!result.error) {
         if (!result.answer?.data?.code) {
             return result.answer.widgets;
@@ -47,8 +47,8 @@ async function getWidgetList(environment) {
 
 async function getTemplateVersions(environment, templateID) {
     let answer = [];
-    const result = await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/layout/versions/v1/${templateID}`)
-    
+    const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/layout/versions/v1/${templateID}`)
+
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer.versions;
@@ -62,10 +62,10 @@ async function getTemplateVersions(environment, templateID) {
     }
     return answer
 }
-        
+
 async function getLayoutDetail(environment, templateID, version) {
     let answer = {};
-    const result =  await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/layout/detail/v1/${templateID}${version ? "?version=" + version : ""}`)
+    const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/layout/detail/v1/${templateID}${version ? "?version=" + version : ""}`)
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer.layout;
@@ -98,16 +98,16 @@ async function adminSearchV1(environment, vertical, query, platform, visible, pa
             },
             'searchOrder': {
                 'orderBy': 'date',
-                'orderDirection':'DESC'
+                'orderDirection': 'DESC'
             },
             'searchQuery': {
                 'query': query
             }
         }
     }
-    
+
     let answer = {};
-    const result = await postLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/search/${isSearch?"":"csv/"}v1`, data);
+    const result = await postLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/search/${isSearch ? "" : "csv/"}v1`, data);
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer;
@@ -119,7 +119,7 @@ async function adminSearchV1(environment, vertical, query, platform, visible, pa
     else {
         showAlertText(result.error, 'danger');
     }
-    
+
     return answer;
 }
 
@@ -141,8 +141,8 @@ async function getServiceName(environment, widget, platform) {
             }
         }
     };
-    const result = await postLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/v1/widget-search-list`, data)
-    
+    const result = await postLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/v1/widget-search-list`, data)
+
     if (!result.error) {
         if (!result.answer?.data?.code) {
             const items = result.answer.widgets;
@@ -175,7 +175,7 @@ async function getConfigFromLMT(environment, widget, versionConfig, isShowAlert 
     let answer = undefined
 
     if (service) {
-        const result = await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/proxy/composer-sdk/v1/config?name=${widget.name}&widgetVersion=${widget.version}&vertical=${widget.vertical}&version=${versionConfig}&serviceName=${service}`, isComboBox);
+        const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/proxy/composer-sdk/v1/config?name=${widget.name}&widgetVersion=${widget.version}&vertical=${widget.vertical}&version=${versionConfig}&serviceName=${service}`, isComboBox);
         if (!result.error) {
             if (!result.answer?.data?.code) {
                 return result.answer.config;
@@ -193,14 +193,14 @@ async function getConfigFromLMT(environment, widget, versionConfig, isShowAlert 
             }
         }
     }
-    
+
     return answer
 }
 
 async function getConditionGet(environment, version) {
     let answer = {};
-    const result = await getLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/condition/get/${version}`)
-    
+    const result = await getLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/condition/get/${version}`)
+
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer.condition;
@@ -217,7 +217,7 @@ async function getConditionGet(environment, version) {
 
 async function saveTemplateToLMT(environment, data) {
     let answer = {};
-    const result = await postLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/admin/layout/save/v1`, data);
+    const result = await postLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/admin/layout/save/v1`, data);
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer.layout;
@@ -229,13 +229,13 @@ async function saveTemplateToLMT(environment, data) {
     else {
         showAlertText(result.error, 'danger');
     }
-    
+
     return answer;
 }
 
 async function saveConfigToLMT(environment, data) {
     let answer = {};
-    const result = await postLayoutApiData(`http://layout-api.${environment}.a.o3.ru:80/proxy/composer-sdk/v1/config`, data);
+    const result = await postLayoutApiData(`https://layout-api.${environment}.a.o3.ru:80/proxy/composer-sdk/v1/config`, data);
     if (!result.error) {
         if (!result.answer?.data?.code) {
             answer = result.answer;
@@ -247,29 +247,29 @@ async function saveConfigToLMT(environment, data) {
     else {
         showAlertText(result.error, 'danger');
     }
-    
+
     return answer;
 }
 
 async function getLayoutApiData(layoutApiURL, isComboBox = true) {
     let errorText;
-    
+
     const answer = await fetch(layoutApiURL, {
         method: 'GET',
         headers: {
             'Authorization': `${isComboBox ? authorizationHeader.value : await navigator.clipboard.readText()}`,
             'accept': 'application/json'
         }
-        }).then((res) => res.json()).catch(error => {
-            errorText = error;
+    }).then((res) => res.json()).catch(error => {
+        errorText = error;
     });
-    
-    return {"answer": answer, "error": errorText};
+
+    return { "answer": answer, "error": errorText };
 }
 
 async function postLayoutApiData(layoutApiURL, data) {
     let errorText;
-        
+
     const answer = await fetch(layoutApiURL, {
         method: 'POST',
         headers: {
@@ -278,11 +278,11 @@ async function postLayoutApiData(layoutApiURL, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-        }).then((res) => res.json()).catch(error => {
-            errorText = error;
+    }).then((res) => res.json()).catch(error => {
+        errorText = error;
     });
-    
-    return {"answer": answer, "error": errorText};
+
+    return { "answer": answer, "error": errorText };
 }
 
 function showAlertText(text, typeMessage) {
@@ -344,7 +344,7 @@ function addTextToButtonV2(widget, property, accordionButton, isBold) {
 }
 
 function getTextOfParams(widget) {
-    let labelCondition = {'name': '', 'operation': '', 'value': ''};
+    let labelCondition = { 'name': '', 'operation': '', 'value': '' };
     let labelSavedCondition = '';
     let isSavedCondition = false;
     if (widget.params) {
